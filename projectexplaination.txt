@@ -1,0 +1,23 @@
+Situation
+Reddit is a popular online platform with thousands of communities (subreddits) where users post content and engage in discussions. Manually participating in multiple subreddits to comment and interact can be time-consuming and inconsistent.
+
+Task
+The goal was to create an automated, responsible Reddit bot that can:
+
+Log in to Reddit using secure credentials,
+Select posts from specified subreddits based on configurable criteria,
+Post comments using templates or a file,
+Avoid spamming or violating Reddit’s rules,
+Log its activity and handle errors gracefully.
+
+Action
+Configuration: Used a .env file and a config module to securely manage credentials and bot settings.
+Reddit API: Utilized the PRAW library to interact with Reddit.
+Automation: Implemented logic to select suitable posts, avoid duplicate or inappropriate comments, and respect rate limits.
+Logging: Added detailed logging (with Unicode support) to track actions and errors.
+Extensibility: Allowed for dry-run mode, interactive mode, and easy adjustment of behavior via config files.
+
+Result
+The bot can automatically comment on Reddit posts across multiple subreddits, following best practices and user-defined rules.
+It reduces manual effort, increases engagement, and provides clear logs for monitoring.
+The project is modular, secure, and easy to extend or adapt for new requirements.

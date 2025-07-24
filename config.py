@@ -12,7 +12,8 @@ TARGET_SUBREDDITS = [
     'science',
     'technology',
     'gaming',
-    'movies'
+    'movies',
+    'sipsTea',
 ]
 
 # Comment Templates
