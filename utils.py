@@ -103,7 +103,7 @@ def test_config():
     
     # Test config.py
     try:
-        from config import TARGET_SUBREDDITS, COMMENT_TEMPLATES
+        from bot.config import TARGET_SUBREDDITS, COMMENT_TEMPLATES
         print(f"✅ Configuration loaded - {len(TARGET_SUBREDDITS)} subreddits, {len(COMMENT_TEMPLATES)} comment templates")
     except Exception as e:
         print(f"❌ Error loading config.py: {e}")

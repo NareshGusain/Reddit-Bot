@@ -23,10 +23,10 @@ from datetime import datetime, timedelta
 from dotenv import load_dotenv
 from typing import List, Dict, Optional
 import json
-import reddit_bot
+import bot.bot_core as bot_core
 
 # Import configuration
-from config import (
+from bot.config import (
     TARGET_SUBREDDITS, COMMENT_TEMPLATES, POST_SELECTION, 
     COMMENT_BEHAVIOR, RATE_LIMITS, LOGGING
 )
@@ -43,7 +43,7 @@ def main():
         print("❌ .env file not found!")
         sys.exit(1)
 
-    bot = reddit_bot.RedditBot(dry_run=args.dry_run)
+    bot = bot_core.RedditBot(dry_run=args.dry_run)
     try:
         if args.interactive:
             bot.interactive_mode()
@@ -55,6 +55,8 @@ def main():
     except Exception as e:
         bot.logger.error(f"💥 Unexpected error: {e}")
         bot.save_commented_posts()
+
+
 
 if __name__ == "__main__":
     main()

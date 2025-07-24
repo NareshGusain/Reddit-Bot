@@ -7,10 +7,11 @@ import sys
 from datetime import datetime, timedelta
 from dotenv import load_dotenv
 import json
-from config import (
+from bot.config import (
     TARGET_SUBREDDITS, COMMENT_TEMPLATES, POST_SELECTION, 
     COMMENT_BEHAVIOR, RATE_LIMITS, LOGGING
 )
+from groq import Groq
 
 class RedditBot:
     def __init__(self, dry_run: bool = False):
@@ -282,3 +283,36 @@ class RedditBot:
                 break
             else:
                 print("Invalid choice. Please try again.")
+    
+    def fetch_random_post(self, subreddit_name: str):
+        """Fetch a random post from a subreddit."""
+        subreddit = self.reddit.subreddit(subreddit_name)
+        posts = list(subreddit.hot(limit=50))  # You can adjust the limit
+        post = random.choice(posts)
+        return post
+
+    def generate_comment_with_groq(self, title, content):
+        client = Groq()
+        prompt = (
+            f"Read the following Reddit post and write a meaningful, relevant, and upvote-worthy comment:\n\n"
+            f"Title: {title}\nContent: {content}\n\nComment:"
+        )
+        completion = client.chat.completions.create(
+            model="compound-beta",
+            messages=[
+                {
+                    "role": "user",
+                    "content": prompt
+                }
+            ],
+            temperature=1,
+            max_completion_tokens=1024,
+            top_p=1,
+            stream=True,
+            stop=None,
+        )
+
+        comment = ""
+        for chunk in completion:
+            comment += chunk.choices[0].delta.content or ""
+        return comment
